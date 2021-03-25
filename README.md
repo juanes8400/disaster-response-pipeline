@@ -35,3 +35,6 @@ The last part is a website with a visualization of the train dataset and the imp
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+Website:
+https://view6914b2f4-3001.udacity-student-workspaces.com/
