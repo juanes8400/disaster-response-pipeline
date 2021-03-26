@@ -36,8 +36,8 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///messages.db')
-df = pd.read_sql("SELECT * FROM messages", engine)
+engine = create_engine('sqlite:///Messages.db')
+df = pd.read_sql("SELECT * FROM Messages", engine)
 
 # load model
 #model = pickle.load(open("disaster_model_p.sav",'rb'))
