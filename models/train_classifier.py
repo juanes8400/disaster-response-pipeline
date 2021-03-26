@@ -51,8 +51,8 @@ def load_data(database_filepath):
     This function load data from the constructed database and gets X, Y and category names.
     '''
     # load data from database
-    engine = create_engine('sqlite:///messages.db')
-    df = pd.read_sql("SELECT * FROM messages", engine)
+    engine = create_engine('sqlite:///Messages.db')
+    df = pd.read_sql("SELECT * FROM Messages", engine)
     X = df.loc[:,['message']]
     Y = df.drop(['message', 'genre', 'id', 'original'], axis=1)
     category_names = Y.columns.tolist()
