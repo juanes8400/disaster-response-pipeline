@@ -9,18 +9,31 @@ The last part is a website with a visualization of the train dataset and the imp
 
 ### Files in the repository
 1. app (folder)
+
 1.1. templates (folder)
+
 1.1.1. go.html: Web app of the classification
+
 1.1.2. master.html: main site of the web app
+
 1.2. run.py: Python code which runs the website
+
 2. data (folder)
+
 2.1. disaster_categories.csv: CSV with the categories of the disasters
+
 2.2. disaster_messages.csv: CSV which contains the original message their traslation and the possible categories which it belong to
+
 2.3. messages.db: Created database with the information
+
 2.4. process_data.py: Python ETL which creates the database
+
 3. models (folder)
+
 3.1. classifier.pkl: Resulting model
+
 3.2. train_classifier.pkl: This python models the data and exports the model in pickle
+
 4. readme.md: This file
 
 ### Instructions:
