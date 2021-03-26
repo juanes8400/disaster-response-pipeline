@@ -7,6 +7,17 @@ The project creates a process of Extract, Transform and Load and saves it in a d
 
 The last part is a website with a visualization of the train dataset and the implementation of the model where you could write your own twit and use the model to test which category is read in it
 
+### Packages
+- sys
+- re
+- pickle
+- nltk
+- pandas
+- numpy
+- sqlalchemy
+- scikit-learn
+- joblib
+
 ### Files in the repository
 1. app (folder)
 
