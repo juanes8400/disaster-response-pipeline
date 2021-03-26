@@ -18,6 +18,9 @@ The last part is a website with a visualization of the train dataset and the imp
 - scikit-learn
 - joblib
 
+### Bibliography
+https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html
+
 ### Files in the repository
 1. app (folder)
 
