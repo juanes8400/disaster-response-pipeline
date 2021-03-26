@@ -32,7 +32,7 @@ df = pd.read_sql("SELECT * FROM messages", engine)
 
 # load model
 #model = pickle.load(open("disaster_model_p.sav",'rb'))
-model = joblib.load("/home/workspace/models/disaster_model.pkl")
+model = joblib.load("/home/workspace/models/classifier.pkl")
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
