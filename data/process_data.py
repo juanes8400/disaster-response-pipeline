@@ -58,8 +58,8 @@ def save_data(df, database_filename):
     '''
     from sqlalchemy import create_engine
 
-    engine = create_engine('sqlite:///messages.db')
-    df.to_sql('messages', engine, index=False, if_exists='replace')
+    engine = create_engine('sqlite:///Messages.db')
+    df.to_sql('Messages', engine, index=False, if_exists='replace')
 
 
 def main():
