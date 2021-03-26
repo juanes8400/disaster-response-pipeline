@@ -39,6 +39,17 @@ from sklearn.ensemble import ExtraTreesClassifier
 import joblib
 
 def load_data(database_filepath):
+    '''
+    Input:
+    database_filepath: The route of the file which contains the databases
+    
+    Output:
+    X: The dataframe containing the exogenous variables for the model
+    Y: Dataframe containing the endogenous (y) variable for the model
+    category_names: The columns of the Y, taken from the column names
+    
+    This function load data from the constructed database and gets X, Y and category names.
+    '''
     # load data from database
     engine = create_engine('sqlite:///messages.db')
     df = pd.read_sql("SELECT * FROM messages", engine)
@@ -49,6 +60,14 @@ def load_data(database_filepath):
     
 
 def tokenize(text):
+    '''
+    Input:
+    text: The complete text from the twits which are going to be analized
+    Output:
+    lems: The words preprocessed for the algorithm
+    
+    The function applies removal of stop words, lemmatization, removal of punctuation marks and lemmatization of the text, ready to be modeled.
+    '''
     import string
     stop_words = nltk.corpus.stopwords.words("english")
     lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()
@@ -67,26 +86,70 @@ def tokenize(text):
 
 
 def build_model():
-    forest_clf = RandomForestClassifier(n_estimators=200,verbose=100)
+    
+    '''
+    Input: None
+    Output: Model object ready to receive text
+    This function creates the object model which pipelines and gridsearches the df of texts
+    '''
+    
+    forest_clf = RandomForestClassifier(n_estimators=3,verbose=100)
     pipeline = Pipeline([
                     ('tfidf', TfidfVectorizer(tokenizer=tokenize)),
                     ('forest', MultiOutputClassifier(forest_clf))
                     ])
-    return(pipeline)
+    parameters = {
+        'tfidf__ngram_range': ((1, 1), (1, 2)),
+        'tfidf__max_df': (0.8, 0.9, 1),
+        'tfidf__max_features': (None, 6000),
+        'forest__estimator__n_estimators': [10, 15, 20],
+        'forest__estimator__min_samples_split': [2, 4, 6]}
 
+    grid = GridSearchCV(pipeline, parameters, cv=2, n_jobs=-1)
+    return(grid)
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+    Input:
+    Model: Model object to be inputted with the X variables
+    X_test: Dataframe containing the test set of columns which will help model
+    Y_test: Dataframe with the endogenous variables to evaluate (test)
+    category_names: Category names for the Y
+    
+    Output:
+    classification_report: category by category the confusion matrix and its analysis
+    
+    This function prints and save the model evaluation
+    
+    '''
     Y_pred = model.predict(X_test)
     for i, col in enumerate(Y_test):
         print(col)
         print(classification_report(Y_test[col], Y_pred[:, i]))
+    return(classification_report(Y_test[col], Y_pred[:, i]))
 
 
 def save_model(model, model_filepath):
+    '''
+    Input:
+    model: Model object
+    model_filepath: File path where the user would like to save the model
+    
+    Output:
+    None
+    
+    The function saves "model" in the indicated path
+    '''
     joblib.dump(model, '/home/workspace/models/classifier.pkl')
 
 
 def main():
+    '''
+    Input: None
+    Output: None
+    
+    This function runs all
+    '''
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
